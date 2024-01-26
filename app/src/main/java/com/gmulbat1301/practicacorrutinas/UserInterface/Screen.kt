@@ -31,8 +31,7 @@ fun Screen(
         ColorButton(viewModel)
         Spacer(modifier = Modifier.padding(10.dp))
         APIButton(viewModel)
-        Spacer(modifier = Modifier.padding(10.dp))
-        ApiText(viewModel)
+
     }
 
 
@@ -78,6 +77,8 @@ fun APIButton(
             fontWeight = FontWeight.Bold
         )
     }
+    Spacer(modifier = Modifier.padding(10.dp))
+    ApiText(viewModel)
 }
 
 @Composable
