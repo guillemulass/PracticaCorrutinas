@@ -25,8 +25,6 @@ class ViewModel(application: Application) : AndroidViewModel(application){
 
 
     fun fetchData() {
-
-        //Nos permite crear una corrutina desde un ViewModel
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 delay(5000)

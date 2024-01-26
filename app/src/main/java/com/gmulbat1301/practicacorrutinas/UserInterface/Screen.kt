@@ -67,7 +67,7 @@ fun APIButton(
     Button(
         shape = RectangleShape,
         onClick = {
-            viewModel.apiCaller()
+            viewModel.fetchData()
         } ,
         colors = ButtonDefaults.buttonColors(Color.DarkGray)
     ) {
