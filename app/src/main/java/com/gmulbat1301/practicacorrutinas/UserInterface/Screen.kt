@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -78,6 +80,12 @@ fun APIButton(
         )
     }
     Spacer(modifier = Modifier.padding(10.dp))
+    if (viewModel.isLoading){
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(150.dp)
+        )
+    }
     ApiText(viewModel)
 }
 
@@ -87,7 +95,7 @@ fun ApiText(
 ){
 
     Text(
-        text = if (viewModel.apiCalls == 0) "" else "Respuesta API: $viewModel.apiCalls",
+        text = if (viewModel.apiCalls == 0) "" else "Respuesta API: ${viewModel.apiCalls}",
         fontSize = 15.sp,
         fontWeight = FontWeight.Bold
     )

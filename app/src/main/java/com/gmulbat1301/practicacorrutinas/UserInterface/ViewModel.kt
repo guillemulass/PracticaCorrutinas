@@ -18,11 +18,16 @@ import kotlinx.coroutines.withContext
 class ViewModel(application: Application) : AndroidViewModel(application){
 
     var apiCalls by mutableIntStateOf(0)
-
     var backgroundColor by mutableStateOf(Color.DarkGray)
+    var isLoading by mutableStateOf(false)
 
     private var alternator = true
 
+
+    fun colorChanger(){
+        alternator = !alternator
+        backgroundColor = if (alternator) Color.Blue else Color.Red
+    }
 
     fun fetchData() {
         viewModelScope.launch {
@@ -33,10 +38,24 @@ class ViewModel(application: Application) : AndroidViewModel(application){
         }
     }
 
-    fun colorChanger(){
-        alternator = !alternator
-        backgroundColor = if (alternator) Color.Blue else Color.Red
+    fun fetchDataa() {
+        //Nos permite crear una corrutina desde un ViewModel
+        viewModelScope.launch {
+            try {
+                isLoading = true
+                llamarApi()
+            } catch (e: Exception) {
+                println("Error ${e.message}")
+            } finally {
+                isLoading = false
+            }
+        }
     }
 
-
+    private suspend fun llamarApi() {
+        val result = withContext(Dispatchers.IO) {
+            delay(5000)
+            apiCalls = apiCalls.plus(1)
+        }
+    }
 }
