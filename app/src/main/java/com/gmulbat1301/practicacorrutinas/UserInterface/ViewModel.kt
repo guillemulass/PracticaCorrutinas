@@ -9,6 +9,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ViewModel(application: Application) : AndroidViewModel(application){
 
@@ -19,9 +24,15 @@ class ViewModel(application: Application) : AndroidViewModel(application){
     private var alternator = true
 
 
-    fun apiCaller(){
-        Thread.sleep(5000)
-        apiCalls ++
+    fun fetchData() {
+
+        //Nos permite crear una corrutina desde un ViewModel
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                delay(5000)
+                apiCalls = apiCalls.plus(1)
+            }
+        }
     }
 
     fun colorChanger(){
