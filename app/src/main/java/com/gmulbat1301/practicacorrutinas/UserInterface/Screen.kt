@@ -9,7 +9,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,8 +16,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 
 @Composable
 fun Screen(
@@ -46,14 +43,12 @@ fun ColorButton(
     viewModel: ViewModel
 ){
 
-    val backgroundColor: Color by viewModel.backgroundColor.observeAsState(Color.DarkGray)
-
     Button(
         shape = RectangleShape,
         onClick = {
             viewModel.colorChanger()
         } ,
-        colors = ButtonDefaults.buttonColors(backgroundColor)
+        colors = ButtonDefaults.buttonColors(viewModel.backgroundColor)
     ) {
         Text(
             text = "Cambiar color",
@@ -89,13 +84,9 @@ fun APIButton(
 fun ApiText(
     viewModel: ViewModel
 ){
-    //val apiCalls: Int by mutableStateOf(0)
-
-
-    val apiCalls: Int by viewModel.apiCalls.observeAsState(0)
 
     Text(
-        text = if (apiCalls == 0) "" else "Respuesta API: $apiCalls",
+        text = if (viewModel.apiCalls == 0) "" else "Respuesta API: $viewModel.apiCalls",
         fontSize = 15.sp,
         fontWeight = FontWeight.Bold
     )
